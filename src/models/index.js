@@ -4,7 +4,7 @@ var db = {};
 
 const sequelize = new Sequelize(database.default[database.default.default]);
 
-let models = [require("../models/User")];
+let models = [require("./User")];
 
 // Initialize models
 models.forEach((model) => {

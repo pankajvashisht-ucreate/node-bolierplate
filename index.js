@@ -10,7 +10,7 @@ import cors from "cors";
 import indexRouter from "./src/routes/index.js";
 import V1Apis from "./src/routes/apis/v1/index.js";
 dotenv.config();
-require("./src/database/index.js");
+require("./src/models/index.js");
 const app = express();
 
 app.use(bodyParser.json());

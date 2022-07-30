@@ -5,5 +5,6 @@ import { cors, setLanguage } from "middleware/index.js";
 const router = express.Router();
 router.use([cors, setLanguage]);
 router.get("/", Apiresponse(Users.login));
+router.post("/user", Apiresponse(Users.login));
 
 export default router;

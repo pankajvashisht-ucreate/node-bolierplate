@@ -1,9 +1,9 @@
 class AppError extends Error {
-	constructor({ details = {}, message } = {}) {
+	constructor({ message, details = {} } = {}) {
 		super(message || details.message);
 		this.name = this.constructor.name;
 		Error.captureStackTrace(this, this.constructor);
-		this.details = details;
+		this.details = message;
 	}
 }
 
