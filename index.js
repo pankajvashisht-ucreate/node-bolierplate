@@ -1,14 +1,14 @@
 import '@babel/polyfill';
 import express from 'express';
 import bodyParser from 'body-parser';
-import createError from 'http-errors';
 import dotenv from 'dotenv';
 import path from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import cors from 'cors';
 import indexRouter from './src/routes/index.js';
-import V1Apis from './src/routes/apis/v1/index.js';
+import apiRoute from './src/routes/apis/v1/index.js';
+import { errorResponse, notFound } from './src/utils/index.js';
 dotenv.config();
 require('./src/models/index.js');
 const app = express();
@@ -28,51 +28,13 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'src/public')));
 
 app.use('/', indexRouter);
-app.use('/api/v1', V1Apis);
+app.use('/api/v1', apiRoute);
 
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
-	res.status(404).json({
-		errorMessage: 'not found',
-		code: 404,
-		status: false,
-	});
-});
+app.use(notFound);
 
 // error handler
-app.use(function (err, req, res, next) {
-	res.locals.error = req.app.get('env') === 'development' ? err : {};
-	try {
-		const code =
-			typeof err === 'object'
-				? err.hasOwnProperty('code')
-					? err.code
-					: 500
-				: 403;
-		const message =
-			typeof err === 'object'
-				? err.hasOwnProperty('details')
-					? err.details.message || err.details
-					: err
-				: err;
-		return res.status(code).json({
-			success: false,
-			errorMessage:
-				typeof message === 'object' || code === 500
-					? JSON.stringify(err)
-					: message,
-			code,
-			data: [],
-		});
-	} catch (error) {
-		return res.status(500).json({
-			success: false,
-			errorMessage: typeof error === 'object' ? JSON.stringify(error) : error,
-			code: 500,
-			data: [],
-		});
-	}
-});
+app.use(errorResponse);
 app.on('error', (appErr, appCtx) => {
 	console.error('app error', appErr.stack);
 	console.error('on url', appCtx.req.url);
