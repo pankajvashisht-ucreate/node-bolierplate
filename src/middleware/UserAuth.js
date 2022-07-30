@@ -4,6 +4,9 @@ import { User } from 'models';
 
 const UserAuth = async (req, res, next) => {
 	try {
+		if (!req.auth) {
+			return next();
+		}
 		if (!(req.headers && req.headers['authorization'])) {
 			throw new ApiError('Authorization key is required', 400);
 		}
