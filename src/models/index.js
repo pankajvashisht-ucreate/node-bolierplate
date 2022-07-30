@@ -1,10 +1,10 @@
-const Sequelize = require("sequelize");
-const database = require("config/database.js");
+const Sequelize = require('sequelize');
+const database = require('config/database.js');
 var db = {};
 
 const sequelize = new Sequelize(database.default[database.default.default]);
 
-let models = [require("./User")];
+let models = [require('./User'), require('./product')];
 
 // Initialize models
 models.forEach((model) => {
@@ -14,7 +14,7 @@ models.forEach((model) => {
 
 // Apply associations
 Object.keys(db).forEach((key) => {
-	if ("associate" in db[key]) {
+	if ('associate' in db[key]) {
 		db[key].associate(db);
 	}
 });
