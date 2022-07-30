@@ -1,5 +1,5 @@
-import { Vaildation } from "utils";
-import { User } from "models/index";
+import { Vaildation } from 'utils';
+import { User } from 'models/index';
 class Users {
 	async login({ body: { email, phone } }) {
 		const requestData = await Vaildation({
@@ -9,8 +9,8 @@ class Users {
 		const data = await User.findAll();
 
 		return {
-			data: requestData,
-			message: "hello world",
+			data: data,
+			message: 'hello world',
 			status: 200,
 		};
 	}
