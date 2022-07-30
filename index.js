@@ -40,8 +40,7 @@ app.use(function (req, res, next) {
 });
 
 // error handler
-app.use(function (err, req, res) {
-	res.locals.message = err.message;
+app.use(function (err, req, res, next) {
 	res.locals.error = req.app.get('env') === 'development' ? err : {};
 	try {
 		const code =

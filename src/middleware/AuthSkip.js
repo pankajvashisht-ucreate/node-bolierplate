@@ -3,15 +3,6 @@ const missingRoutes = {
 	'forgot-password': 'POST',
 	'user/login': 'POST',
 	'user/signup': 'POST',
-	'user/soical-login': 'POST',
-	goals: 'GET',
-	category_details: 'GET',
-	articles: 'GET',
-	categories: 'GET',
-	'question-categoires': 'GET',
-	'user/login-phone': 'POST',
-	'stripe-connect': 'GET',
-	services: 'GET',
 };
 const makeUrl = (req) => {
 	let url = req.path.split('/');
