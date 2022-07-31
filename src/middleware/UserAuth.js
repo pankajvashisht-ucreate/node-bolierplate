@@ -20,7 +20,7 @@ const UserAuth = async (req, res, next) => {
 			throw new ApiError('Invaild Authorization', 401);
 		}
 		const reqUser = { ...user.get() };
-		req.userInfo = user;
+		req.userInfo = reqUser;
 		req.userId = user.id;
 		return next();
 	} catch (error) {
